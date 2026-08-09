@@ -1,0 +1,16 @@
+{
+  "name": "stock-inventory-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack inventory / stock management application",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "setup": "npm install && npm install --prefix server && npm install --prefix client",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

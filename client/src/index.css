@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-canvas text-dark font-sans;
+  }
+
+  ::selection {
+    background-color: #778667;
+    color: #f9f9f9;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .heading-display {
+    @apply font-display font-semibold tracking-tight text-dark;
+  }
+
+  .input-base {
+    @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-dark placeholder-dark-muted outline-none transition-colors duration-150;
+  }
+
+  .input-base:focus {
+    @apply border-primary;
+    box-shadow: 0 0 0 3px rgba(119, 134, 103, 0.15);
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
