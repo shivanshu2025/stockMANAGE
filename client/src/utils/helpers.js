@@ -1,4 +1,6 @@
-export const PRODUCT_TYPES = ['Electronics', 'Clothing', 'Shoes', 'Accessories', 'Other'];
+export const PRODUCT_TYPES = ['TYPES-1', 'TYPES-2', 'TYPES-3', 'TYPES-4', 'TYPES-5', 'TYPES-6', 'TYPES-7', 'TYPES-8', 'TYPES-9', 'TYPES-10',
+  'TYPES-11', 'TYPES-12', 'TYPES-13', 'TYPES-14', 'TYPES-15', 'TYPES-16', 'TYPES-17', 'TYPES-18',
+];
 
 export const STOCK_STATUS = {
   'in-stock': 'IN STOCK',
