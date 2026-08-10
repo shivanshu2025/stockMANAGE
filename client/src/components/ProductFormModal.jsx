@@ -11,7 +11,7 @@ import { productApi, getErrorMessage } from '../services/api';
 const ProductFormModal = ({ open, onClose, product, onSuccess }) => {
   const [name, setName] = useState(product?.name || '');
   const [type, setType] = useState(product?.type || '');
-  const [size, setSize] = useState(product?.size || '');
+  const [size, setSize] = useState(product?.size ?? '');
   const [note, setNote] = useState(product?.note || '');
   const [image, setImage] = useState({ file: null, error: '' });
   const [errors, setErrors] = useState({});
@@ -34,7 +34,7 @@ const ProductFormModal = ({ open, onClose, product, onSuccess }) => {
       const formData = new FormData();
       formData.append('name', name.trim());
       formData.append('type', type);
-      formData.append('size', size.trim());
+      formData.append('size', size === '' ? '' : Number(size));
       formData.append('note', note.trim());
       if (image.file) formData.append('image', image.file);
 

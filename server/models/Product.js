@@ -35,9 +35,8 @@ const productSchema = new mongoose.Schema(
       enum: PRODUCT_TYPES,
     },
     size: {
-      type: String,
-      trim: true,
-      default: '',
+      type: Number,
+      default: null,
     },
     quantity: {
       type: Number,

@@ -115,7 +115,7 @@ const createProduct = asyncHandler(async (req, res) => {
     sku,
     image,
     type,
-    size: size ? String(size).trim() : '',
+    size: size === undefined || size === null || size === '' ? null : Number(size),
     quantity: parsedQuantity,
     note: note ? String(note).trim() : '',
   });
@@ -153,7 +153,9 @@ const updateProduct = asyncHandler(async (req, res) => {
 
   if (name !== undefined) product.name = String(name).trim();
   if (type !== undefined) product.type = type;
-  if (size !== undefined) product.size = String(size).trim();
+  if (size !== undefined) {
+    product.size = size === null || size === '' ? null : Number(size);
+  }
   if (note !== undefined) product.note = String(note).trim();
 
   if (req.file) {

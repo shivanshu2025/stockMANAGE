@@ -46,7 +46,7 @@ const AddStock = () => {
       const formData = new FormData();
       formData.append('name', name.trim());
       formData.append('type', type);
-      formData.append('size', size.trim());
+      formData.append('size', size === '' ? '' : Number(size));
       formData.append('quantity', quantity);
       formData.append('note', note.trim());
       if (image.file) formData.append('image', image.file);
@@ -124,7 +124,9 @@ const AddStock = () => {
           <Input
             id="product-size"
             label="Size"
-            placeholder="e.g. M, 42, One Size"
+            placeholder="e.g. 42"
+            type="number"
+            min="0"
             value={size}
             onChange={(e) => setSize(e.target.value)}
           />
