@@ -184,7 +184,7 @@ const Header = () => {
       </div>
 
       <nav
-        className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-canvas pb-[env(safe-area-inset-bottom)] md:hidden"
+        className="fixed inset-x-0 bottom-0 z-50 bg-canvas pb-[env(safe-area-inset-bottom)] md:hidden"
         aria-label="Mobile navigation"
       >
         <div className="grid w-full grid-cols-4">

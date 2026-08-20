@@ -9,7 +9,7 @@ const ProductCard = ({ product, onEdit, onAddStock, onOutStock, onDelete }) => {
 
   return (
     <div className="rounded-2xl border border-line bg-white p-4 shadow-card">
-      <div className="flex gap-4">
+      <div className="flex gap-3 sm:gap-4">
         <button
           type="button"
           onClick={() => navigate(`/products/${product._id}`)}
@@ -26,12 +26,12 @@ const ProductCard = ({ product, onEdit, onAddStock, onOutStock, onDelete }) => {
           >
             {product.name}
           </button>
-          <p className="text-xs text-dark-soft">
+          <p className="truncate text-xs text-dark-soft">
             {product.type}
             {product.size ? ` · ${product.size}` : ''}
           </p>
-          <p className="mt-0.5 text-xs text-dark-muted">{product.sku}</p>
-          <div className="mt-2 flex items-center justify-between gap-2">
+          <p className="mt-0.5 truncate text-xs text-dark-muted">{product.sku}</p>
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
             <span className="text-sm text-dark-soft">
               Stock: <span className="font-display text-lg font-semibold text-dark">{product.quantity}</span>
             </span>

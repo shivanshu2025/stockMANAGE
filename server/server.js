@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
@@ -37,9 +38,36 @@ const PORT = process.env.PORT || 5000;
 
 const start = async () => {
   await connectDB();
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log('✓ MongoDB connected');
+
+  const server = app.listen(PORT, () => {
+    console.log(`✓ Backend running: http://localhost:${PORT}`);
   });
+
+  server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+      console.error('');
+      console.error(`Port ${PORT} is already in use. A previous server instance is still running.`);
+      console.error('Find the process:  netstat -ano | findstr :5000');
+      console.error('Stop the process:  taskkill /PID <PID> /F');
+      console.error('Then retry:        npm run dev');
+      console.error('');
+    } else {
+      console.error('Server failed to start:', error.message);
+    }
+    process.exit(1);
+  });
+
+  const shutdown = (signal) => {
+    console.log(`\nReceived ${signal}. Closing backend...`);
+    server.close(() => {
+      mongoose.connection.close(() => process.exit(0));
+    });
+    setTimeout(() => process.exit(0), 2000);
+  };
+
+  process.on('SIGINT', () => shutdown('SIGINT'));
+  process.on('SIGTERM', () => shutdown('SIGTERM'));
 };
 
 start();

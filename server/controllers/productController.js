@@ -19,6 +19,15 @@ const getProductStatus = (quantity) => {
   return 'in-stock';
 };
 
+const parseOptionalSize = (size) => {
+  if (size === undefined || size === null || size === '') return null;
+  const parsedSize = Number(size);
+  if (!Number.isFinite(parsedSize) || parsedSize < 0) {
+    return undefined;
+  }
+  return parsedSize;
+};
+
 const serializeProduct = (doc) => {
   const product = doc.toObject ? doc.toObject() : doc;
   return {
@@ -50,7 +59,6 @@ const getProducts = asyncHandler(async (req, res) => {
   let sortOptions = { createdAt: -1 };
   if (sort === 'name') sortOptions = { name: 1 };
   if (sort === 'quantity-asc') sortOptions = { quantity: 1 };
-  if (sort === 'quantity-desc') sortOptions = { quantity: -1 };
 
   const products = await Product.find(query).sort(sortOptions);
 
@@ -109,13 +117,19 @@ const createProduct = asyncHandler(async (req, res) => {
 
   const image = req.file ? `/uploads/${req.file.filename}` : '';
 
+  const parsedSize = parseOptionalSize(size);
+  if (parsedSize === undefined) {
+    res.status(400);
+    throw new Error('Size must be a non-negative number');
+  }
+
   const product = await Product.create({
     userId: req.user._id,
     name: String(name).trim(),
     sku,
     image,
     type,
-    size: size === undefined || size === null || size === '' ? null : Number(size),
+    size: parsedSize,
     quantity: parsedQuantity,
     note: note ? String(note).trim() : '',
   });
@@ -150,11 +164,16 @@ const updateProduct = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('Product type is required');
   }
+  const parsedSize = parseOptionalSize(size);
+  if (parsedSize === undefined) {
+    res.status(400);
+    throw new Error('Size must be a non-negative number');
+  }
 
   if (name !== undefined) product.name = String(name).trim();
   if (type !== undefined) product.type = type;
   if (size !== undefined) {
-    product.size = size === null || size === '' ? null : Number(size);
+    product.size = parsedSize;
   }
   if (note !== undefined) product.note = String(note).trim();
 

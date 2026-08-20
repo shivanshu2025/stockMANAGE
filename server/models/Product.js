@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const PRODUCT_TYPES = ['Electronics', 'Clothing', 'Shoes', 'Accessories', 'Other'];
+const PRODUCT_TYPES = Array.from({ length: 18 }, (_, index) => `TYPES-${index + 1}`);
 
 const productSchema = new mongoose.Schema(
   {

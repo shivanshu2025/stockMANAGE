@@ -8,7 +8,7 @@ const ProductRow = ({ product, onEdit, onAddStock, onOutStock, onDelete }) => {
 
   return (
     <tr className="border-b border-line transition-colors last:border-0 hover:bg-primary/5">
-      <td className="px-5 py-4">
+      <td className="px-4 py-2.5">
         <button
           type="button"
           onClick={() => navigate(`/products/${product._id}`)}
@@ -23,18 +23,18 @@ const ProductRow = ({ product, onEdit, onAddStock, onOutStock, onDelete }) => {
           </span>
         </button>
       </td>
-      <td className="px-5 py-4 text-sm text-dark-soft">{product.type}</td>
-      <td className="px-5 py-4 text-sm text-dark-soft">{product.size || '—'}</td>
-      <td className="px-5 py-4">
+      <td className="px-4 py-2.5 text-sm text-dark-soft">{product.type}</td>
+      <td className="px-4 py-2.5 text-sm text-dark-soft">{product.size || '—'}</td>
+      <td className="px-4 py-2.5">
         <span className="font-display text-2xl font-semibold text-dark">{product.quantity}</span>
       </td>
-      <td className="px-5 py-4">
+      <td className="px-4 py-2.5">
         <StatusBadge status={product.status} />
       </td>
-      <td className="max-w-[200px] px-5 py-4">
+      <td className="max-w-[200px] px-4 py-2.5">
         <p className="truncate text-sm text-dark-soft">{product.note || '—'}</p>
       </td>
-      <td className="px-5 py-4 text-right">
+      <td className="px-4 py-2.5 text-right">
         <ProductActionsMenu
           onView={() => navigate(`/products/${product._id}`)}
           onEdit={() => onEdit(product)}
